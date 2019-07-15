@@ -1,6 +1,7 @@
 class UI {
   constructor() {
     this.profile = document.getElementById( "profile" );
+    this.repos = document.getElementById( "repos" );
   }
 
   showProfile( user ) {
@@ -34,6 +35,7 @@ class UI {
   // Clear the profile when nothing is entered into the text input
   clearProfile () {
     this.profile.innerHTML = "";
+    this.repos.innerHTML = "";
   }
 
   // Display a "user not found" alert when a username that doesn't exist is entered into the text input
@@ -59,5 +61,28 @@ class UI {
     if (alert) {
       alert.remove();
     }
+  }
+
+  showRepos ( repos ) {
+    let output = `<h2 class="text-center mt-5 mb-5">5 Recent Repositories</h2>`;
+
+    repos.forEach(repo => {
+      output += `
+        <div class="card card-body mb-2">
+          <div class="row">
+            <div class="col-4">
+              <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+            </div>
+            <div class="col-8">
+              <span class="badge badge-primary">Stars: ${repo.stargazers_count}</span>
+              <span class="badge badge-secondary">Watchers: ${repo.watchers_count}</span>
+              <span class="badge badge-success">Forks: ${repo.forks_count}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    } );
+    
+    this.repos.innerHTML = output;
   }
 }
